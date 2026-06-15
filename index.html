@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wanyangu Flavius Muruka — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ===================== TOKENS ===================== */
+    :root {
+      --bg:        #0A0E1A;
+      --surface:   #111827;
+      --surface2:  #1A2235;
+      --border:    #1E2D45;
+      --accent:    #3B82F6;
+      --accent2:   #06B6D4;
+      --highlight: #38BDF8;
+      --text:      #E2E8F0;
+      --muted:     #64748B;
+      --dim:       #334155;
+
+      --display: 'Syne', sans-serif;
+      --body:    'Space Grotesk', sans-serif;
+      --mono:    'Space Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ===================== NAV ===================== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2.5rem;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid background — the signature element */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.4;
+      mask-image: radial-gradient(ellipse 80% 60% at 60% 40%, black 30%, transparent 80%);
+    }
+
+    /* Glowing orb */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 10%; right: -5%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px; height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .name-line { display: block; }
+
+    .name-line-accent {
+      display: block;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #2563EB;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .hero-stats {
+      margin-top: 4rem;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-item { }
+
+    .stat-num {
+      font-family: var(--display);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.25rem;
+    }
+
+    /* ===================== SECTIONS ===================== */
+    section {
+      padding: 6rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0 auto;
+    }
+
+    /* ===================== ABOUT ===================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.9;
+    }
+
+    .about-text p:first-child {
+      color: var(--text);
+      font-size: 1.1rem;
+    }
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .interest-chip {
+      padding: 0.6rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      font-family: var(--body);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .interest-chip:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .interest-chip::before {
+      content: '◈';
+      color: var(--accent);
+      font-size: 0.7rem;
+    }
+
+    /* ===================== SKILLS ===================== */
+    #skills { background: none; }
+
+    .skills-outer {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 3rem;
+      margin-top: 3rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .skill-group h3 {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .skill-item:hover { color: var(--text); }
+
+    .skill-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ===================== PROJECTS ===================== */
+    .projects-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 2.5rem;
+      transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .project-card h3 {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.65rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .project-insights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .insight-item {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding-left: 1rem;
+      border-left: 2px solid var(--accent);
+      line-height: 1.5;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      margin-top: 1.25rem;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover { color: var(--highlight); }
+
+    /* ===================== EDUCATION ===================== */
+    .edu-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+    }
+
+    .edu-badge {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .edu-card h3 {
+      font-family: var(--display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .edu-card .degree {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .edu-topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .edu-topic {
+      font-size: 0.75rem;
+      font-family: var(--mono);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ===================== CONTACT ===================== */
+    #contact {
+      text-align: center;
+    }
+
+    .contact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4rem 3rem;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(59,130,246,0.07), transparent);
+      pointer-events: none;
+    }
+
+    .contact-card h3 {
+      font-family: var(--display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(59,130,246,0.05);
+    }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* ===================== SCROLL REVEAL ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.25rem; }
+      .hero { padding: 5rem 1.25rem 3rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .skills-outer { padding: 2rem 1.5rem; }
+      .project-card { padding: 1.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">WFM</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Mathematics &amp; Computer Science · JKUAT</p>
+      <h1>
+        <span class="name-line">Wanyangu</span>
+        <span class="name-line-accent">Flavius Muruka</span>
+      </h1>
+      <p class="hero-desc">
+        Aspiring data analyst and Python developer — turning raw data into clear insights, building practical systems, and solving real-world problems through code and mathematics.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="mailto:wanyanguflavius@gmail.com" class="btn btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Technologies</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">B+</div>
+          <div class="stat-label">KCSE Grade</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <p class="section-label">About Me</p>
+      <h2>Data-driven thinker,<br>hands-on builder.</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>
+          I am a Bachelor's student in Mathematics and Computer Science at Jomo Kenyatta University of Agriculture and Technology, with a focus on data analytics, database management, and software development.
+        </p>
+        <p>
+          My academic training has sharpened my analytical thinking and problem-solving instincts. Beyond coursework, I invest time in personal projects — building systems that connect databases, code, and real-world data.
+        </p>
+        <p>
+          I believe the best way to learn is to build, break, and rebuild. Whether it's a road safety analysis pipeline or a spending behavior study, I enjoy following data to wherever the story leads.
+        </p>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:1rem;">Areas of Interest</p>
+        <div class="interests-grid">
+          <div class="interest-chip">Data Analytics</div>
+          <div class="interest-chip">Data Visualization</div>
+          <div class="interest-chip">Database Management</div>
+          <div class="interest-chip">Software Development</div>
+          <div class="interest-chip">Business Intelligence</div>
+          <div class="interest-chip">Problem Solving</div>
+          <div class="interest-chip">Transport Analytics</div>
+          <div class="interest-chip">Mathematical Modelling</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <p class="section-label">Technical Skills</p>
+      <h2>Tools I work with.</h2>
+    </div>
+    <div class="skills-outer reveal">
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Programming</h3>
+          <div class="skill-item"><span class="skill-dot"></span>Python</div>
+          <div class="skill-item"><span class="skill-dot"></span>HTML</div>
+          <div class="skill-item"><span class="skill-dot"></span>CSS</div>
+        </div>
+        <div class="skill-group">
+          <h3>Databases</h3>
+          <div class="skill-item"><span class="skill-dot"></span>MySQL</div>
+          <div class="skill-item"><span class="skill-dot"></span>SQL Queries</div>
+          <div class="skill-item"><span class="skill-dot"></span>Database Design</div>
+        </div>
+        <div class="skill-group">
+          <h3>Data Analysis</h3>
+          <div class="skill-item"><span class="skill-dot"></span>Pandas</div>
+          <div class="skill-item"><span class="skill-dot"></span>Matplotlib</div>
+          <div class="skill-item"><span class="skill-dot"></span>Data Cleaning</div>
+          <div class="skill-item"><span class="skill-dot"></span>EDA</div>
+        </div>
+        <div class="skill-group">
+          <h3>Dev Tools</h3>
+          <div class="skill-item"><span class="skill-dot"></span>Git</div>
+          <div class="skill-item"><span class="skill-dot"></span>GitHub</div>
+          <div class="skill-item"><span class="skill-dot"></span>VS Code</div>
+        </div>
+        <div class="skill-group">
+          <h3>Mathematics</h3>
+          <div class="skill-item"><span class="skill-dot"></span>Statistics</div>
+          <div class="skill-item"><span class="skill-dot"></span>Calculus</div>
+          <div class="skill-item"><span class="skill-dot"></span>Mathematical Modelling</div>
+          <div class="skill-item"><span class="skill-dot"></span>Analytical Thinking</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <p class="section-label">Projects</p>
+      <h2>Things I've built.</h2>
+    </div>
+    <div class="projects-grid reveal">
+
+      <!-- Project 1 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-icon">🚦</div>
+          </div>
+        </div>
+        <h3>Road Safety Incident Analysis System</h3>
+        <p>
+          A data pipeline integrating MySQL and Python to store, query, and analyze road traffic incident records across Kenyan counties. The system surfaces accident causes, severity distributions, and high-risk regions through automated visualization.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">Git</span>
+        </div>
+        <div class="project-insights">
+          <div class="insight-item">Identified overspeeding as a leading accident cause</div>
+          <div class="insight-item">County-level incident comparison across regions</div>
+          <div class="insight-item">Severity distribution analysis with visual charts</div>
+          <div class="insight-item">Highlighted high-risk corridors through grouped analysis</div>
+        </div>
+        <a href="https://github.com/Dr-Noir254" target="_blank" rel="noopener" class="project-link">
+          View on GitHub →
+        </a>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-icon">📊</div>
+          </div>
+        </div>
+        <h3>Student Spending Analysis</h3>
+        <p>
+          A Python-based exploratory analysis of university student expenditure patterns. The project loads CSV data, runs statistical summaries, and visualizes how students distribute spending across food, transport, entertainment, and savings.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">CSV</span>
+        </div>
+        <div class="project-insights">
+          <div class="insight-item">Spending pattern identification across four categories</div>
+          <div class="insight-item">Statistical summary and distribution analysis</div>
+          <div class="insight-item">Clear visualizations of expenditure breakdowns</div>
+        </div>
+        <a href="https://github.com/Dr-Noir254" target="_blank" rel="noopener" class="project-link">
+          View on GitHub →
+        </a>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card">
+        <div class="project-header">
+          <div>
+            <div class="project-icon">🌐</div>
+          </div>
+        </div>
+        <h3>Personal Portfolio Website</h3>
+        <p>
+          A responsive personal website built with HTML and CSS to present skills, projects, and professional growth in a clean, accessible format — including this site you're viewing now.
+        </p>
+        <div class="tag-row">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">Responsive Design</span>
+        </div>
+        <div class="project-insights">
+          <div class="insight-item">Responsive layout across mobile and desktop</div>
+          <div class="insight-item">Structured project showcase and contact section</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="reveal">
+      <p class="section-label">Education</p>
+      <h2>Academic background.</h2>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-badge">University · Current</div>
+        <h3>Jomo Kenyatta University of Agriculture and Technology</h3>
+        <p class="degree">BSc. Mathematics and Computer Science</p>
+        <div class="edu-topics">
+          <span class="edu-topic">Data Structures</span>
+          <span class="edu-topic">Systems Programming</span>
+          <span class="edu-topic">Computer Networks</span>
+          <span class="edu-topic">Calculus</span>
+          <span class="edu-topic">Differential Equations</span>
+          <span class="edu-topic">Statistics</span>
+          <span class="edu-topic">Database Systems</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-badge">Secondary School</div>
+        <h3>St. Peter's Mumias Boys High School</h3>
+        <p class="degree">KCSE — Grade B+</p>
+        <div class="edu-topics">
+          <span class="edu-topic">Mathematics</span>
+          <span class="edu-topic">Sciences</span>
+          <span class="edu-topic">Leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="reveal">
+      <p class="section-label">Contact</p>
+      <h2>Let's work together.</h2>
+    </div>
+    <div class="contact-card reveal">
+      <h3>Open to opportunities</h3>
+      <p>
+        Whether you have a project, internship opportunity, or just want to talk data and code — I'd love to hear from you.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:wanyanguflavius@gmail.com" class="contact-link">
+          ✉ wanyanguflavius@gmail.com
+        </a>
+        <a href="tel:+254757293758" class="contact-link">
+          📱 0757 293 758
+        </a>
+        <a href="https://github.com/Dr-Noir254" target="_blank" rel="noopener" class="contact-link">
+          ⌥ Dr-Noir254 on GitHub
+        </a>
+      </div>
+      <a href="documents/Wanyangu_Flavius_Muruka_CV.pdf" download class="btn btn-primary" style="display:inline-flex;">
+        Download CV
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Wanyangu Flavius Muruka</p>
+    <p>Mathematics & Computer Science · JKUAT · Nairobi, Kenya</p>
+  </footer>
+
+  <!-- SCROLL REVEAL SCRIPT -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
